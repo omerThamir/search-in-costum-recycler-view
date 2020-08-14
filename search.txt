@@ -1,0 +1,31 @@
+   // inside on create
+        searchET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // if the user wrote something
+                if (charSequence.length() > 0) {
+                    ArrayList<Song> resArrayList = new ArrayList<>();    // create new array list to save search result in it
+                    for (Song song : songsList) {                    // class song contains Name,path,id
+                        if (song.name.contains(charSequence)) {
+                            resArrayList.add(song);
+                        }
+                    }
+                    myRecyclerAdapter = new MyRecyclerAdapter(MainActivity.this, resArrayList);
+                    recyclerView.setAdapter(myRecyclerAdapter);
+                } else {
+                    // if the user did not write any ting or removed his search -> set original list
+                    myRecyclerAdapter = new MyRecyclerAdapter(MainActivity.this, songsList);
+                    recyclerView.setAdapter(myRecyclerAdapter);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
